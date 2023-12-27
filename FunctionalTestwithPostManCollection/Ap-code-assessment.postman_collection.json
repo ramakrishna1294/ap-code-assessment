@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "c1c40dab-4f39-4737-8fd3-2be89b749e6f",
+		"name": "Ap-code-assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1695545"
+	},
+	"item": [
+		{
+			"name": "B-1",
+			"item": [
+				{
+					"name": "getSportswithAssociatedPlayers_No_emailIds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailId\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getSportswithAssociatedPlayers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getSportswithAssociatedPlayers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSportswithAssociatedPlayers_PlayerNotFornd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailId\": [\"NoPlayer@test.com\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getSportswithAssociatedPlayers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getSportswithAssociatedPlayers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSportswithAssociatedPlayers_Happy_path",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailId\": [\"rama@test.com\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getSportswithAssociatedPlayers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getSportswithAssociatedPlayers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "B-2",
+			"item": [
+				{
+					"name": "getPlayersWithNoSports",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getPlayersWithNoSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getPlayersWithNoSports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "B-3",
+			"item": [
+				{
+					"name": "updatePlayerSports_DUPLICTE_SPORT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailId\": \"rama@test.com\",\n    \"sportRequest\": {\n        \"sportName\": [\"NFL\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/updatePlayerSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updatePlayerSports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePlayerSports_happYpath",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailId\": \"rama@test.com\",\n    \"sportRequest\": {\n        \"sportName\": [\"NFL\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/updatePlayerSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"updatePlayerSports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "B-4",
+			"item": [
+				{
+					"name": "Delete_HappyPatrh",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sportName\": [\"tennis\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteSports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_No_sportNames",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sportName\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteSports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_sport_not_registered",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sportName\": [\"Nosport\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteSports",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteSports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "B-5",
+			"item": [
+				{
+					"name": "Paginated Player List without Sports Filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sportName\": [\"Nosport\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getPlayerListwithSportAndPaginated?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getPlayerListwithSportAndPaginated"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paginated Player List with Sports Filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sportName\": [\"Nosport\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/getPlayerListwithSportAndPaginated?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getPlayerListwithSportAndPaginated"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

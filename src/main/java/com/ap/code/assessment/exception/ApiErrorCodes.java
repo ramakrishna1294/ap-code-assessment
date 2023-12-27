@@ -7,7 +7,9 @@ public enum ApiErrorCodes implements ErrorCode{
 	
 	PLAYER_NOT_FOUND("ap.error.playerNotFould", HttpStatus.BAD_REQUEST),
 	SPORT_NOT_FOUND("ap.error.sportNotFould", HttpStatus.BAD_REQUEST),
-	SPORT_DUP_FOUND("ap.error.sportDuplicat", HttpStatus.BAD_REQUEST);
+	SPORT_DUP_FOUND("ap.error.sportDuplicat", HttpStatus.BAD_REQUEST),
+	DB_ERROR("ap.error.connectivity", HttpStatus.INTERNAL_SERVER_ERROR),
+	SYSTEM_ERROR("ap.error.system", HttpStatus.INTERNAL_SERVER_ERROR);
 	
 	private final String code;
 	

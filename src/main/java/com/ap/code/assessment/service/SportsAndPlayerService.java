@@ -1,10 +1,12 @@
 package com.ap.code.assessment.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import com.ap.code.assessment.exception.PlayerNotAvaliableException;
 import com.ap.code.assessment.exception.SportNotAvaliableException;
 import com.ap.code.assessment.exception.SystemException;
 import com.ap.code.assessment.repository.PlayerRepository;
+import com.ap.code.assessment.repository.RelationsRepository;
 import com.ap.code.assessment.repository.SportRepository;
 
 
@@ -42,6 +45,9 @@ public class SportsAndPlayerService {
 	
 	@Autowired
 	private SportRepository sportRepository;
+	
+	@Autowired
+	private RelationsRepository relationsRepository;
 	
 	@Autowired
 	private PlayerResponseConverter playerResponseConverter; 
@@ -88,23 +94,23 @@ public class SportsAndPlayerService {
 			
 			List<Sport> sports = sportRepository.findAllByNameIn(new HashSet<String>(request.getSportRequest().getSportName()));
 			List<Relation> updatedRelation = null;
-			if(CollectionUtils.isEmpty(player.getRelation())) {
-				updatedRelation = player.getRelation();
-				if(updatedRelation.stream().anyMatch(relative -> request.getSportRequest().getSportName().contains(relative.getSport().getName()))) {
+			if(!CollectionUtils.isEmpty(player.getRelation())) {
+				updatedRelation = new ArrayList<Relation>();
+				if(player.getRelation().stream().anyMatch(relative -> request.getSportRequest().getSportName().contains(relative.getSport().getName()))) {
 					throw new DuplicateSportException();
 				}
-				updatedRelation.addAll(sports.stream().map(sport -> populateRelation(player, sport)).collect(Collectors.toList()));
+			}	
+			updatedRelation = new ArrayList<Relation>();
+			updatedRelation.addAll(sports.stream().map(sport -> populateRelation(player, sport)).collect(Collectors.toList()));
+			relationsRepository.saveAll(updatedRelation);
+			if(CollectionUtils.isEmpty(player.getRelation())){
+				player.setRelation(updatedRelation);
 			}else {
-				updatedRelation = new ArrayList<Relation>();
-				updatedRelation.addAll(sports.stream().map(sport -> populateRelation(player, sport)).collect(Collectors.toList()));
+				player.getRelation().addAll(updatedRelation);
 			}
-			player.setRelation(updatedRelation);
-			playerRepository.save(player);
 			return playerResponseConverter.convert(player);
 		}catch(DataAccessException dataAccessException) {
 			throw new ConnectivityException();
-		}catch (Exception exception) {
-			throw new SystemException();
 		}
 	}
 	

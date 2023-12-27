@@ -59,5 +59,37 @@ public class ApiExceptionMapper {
 		}
 		
 	}
+	
+	@Component
+	static class ConnectivityExceptionToError implements ExceptionToErrorCode {
+
+		@Override
+		public boolean canHandel(Exception exception) {
+			return exception instanceof ConnectivityException;
+		}
+
+		@Override
+		public ErrorCode toErrorCode(Exception exception) {
+			
+			return ApiErrorCodes.DB_ERROR;
+		}
+		
+	}
+	
+	@Component
+	static class SystemExceptionToError implements ExceptionToErrorCode {
+
+		@Override
+		public boolean canHandel(Exception exception) {
+			return exception instanceof SystemException;
+		}
+
+		@Override
+		public ErrorCode toErrorCode(Exception exception) {
+			
+			return ApiErrorCodes.SYSTEM_ERROR;
+		}
+		
+	}
 
 }
