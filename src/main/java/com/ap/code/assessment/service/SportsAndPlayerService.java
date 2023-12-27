@@ -67,8 +67,6 @@ public class SportsAndPlayerService {
 			}
 		}catch(DataAccessException dataAccessException) {
 			throw new ConnectivityException();
-		}catch (Exception exception) {
-			throw new SystemException();
 		}
 		return players.stream().map(player -> playerResponseConverter.convert(player)).collect(Collectors.toList());
 		
@@ -92,7 +90,13 @@ public class SportsAndPlayerService {
 		try {
 			Player player = playerRepository.findByEmail(request.getEmailId());
 			
+			if(Objects.isNull(player)) {
+				throw new PlayerNotAvaliableException();
+			}
 			List<Sport> sports = sportRepository.findAllByNameIn(new HashSet<String>(request.getSportRequest().getSportName()));
+			if(CollectionUtils.isEmpty(sports)) {
+				throw new SportNotAvaliableException();
+			}
 			List<Relation> updatedRelation = null;
 			if(!CollectionUtils.isEmpty(player.getRelation())) {
 				updatedRelation = new ArrayList<Relation>();
@@ -134,8 +138,6 @@ public class SportsAndPlayerService {
 			return false;
 		}catch(DataAccessException dataAccessException) {
 			throw new ConnectivityException();
-		}catch (Exception exception) {
-			throw new SystemException();
 		}
 	}
 	
@@ -152,8 +154,6 @@ public class SportsAndPlayerService {
 			}
 		}catch(DataAccessException dataAccessException) {
 			throw new ConnectivityException();
-		}catch (Exception exception) {
-			throw new SystemException();
 		}
 		
 		List<PlayerResponse> playerResponseList =players.getContent().stream().map(player -> playerResponseConverter.convert(player)).collect(Collectors.toList());

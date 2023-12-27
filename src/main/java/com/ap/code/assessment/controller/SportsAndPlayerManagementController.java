@@ -38,6 +38,12 @@ public class SportsAndPlayerManagementController {
 	private SportsAndPlayerManagementValidator apCodeRequestValidator;
 	
 	
+	/**
+	 * This API is to to Get all the Sport Associated with the player
+	 * @param entity holds the list of all the email id of the players
+	 * @return list of players and Associated sports
+	 * 
+	 */
 	@PostMapping("/getSportswithAssociatedPlayers")
 	public List<PlayerResponse> getSportswithAssociatedPlayers( @RequestBody PlayerRequest entity) {
 		logger.info("Entered getSportswithAssociatedPlayers");
@@ -48,6 +54,11 @@ public class SportsAndPlayerManagementController {
 		return  response;
 	}
 	
+	
+	/**
+	 * This Api is to Get all the Players Associated to No Game 
+	 * @return list of players who are not Associated to any sports
+	 */
 	@GetMapping("/getPlayersWithNoSports")
 	public List<PlayerResponse> getPlayersWithNoSports() {
 		logger.info("Entered getPlayersWithNoSports");
@@ -56,6 +67,12 @@ public class SportsAndPlayerManagementController {
 		return  response;
 	}
 	
+	
+	/**
+	 * This is a Update Api, This Can be used to Associated a player to one or more games.
+	 * @param entity Player email id and the Sports he is Associated with
+	 * @return Updated player info and Associated sports
+	 */
 	@PutMapping("/updatePlayerSports")
 	public PlayerResponse updatePlayerSports( @RequestBody UpdatePlayerRequest entity) {
 		logger.info("Entered updatePlayerSports");
@@ -65,6 +82,13 @@ public class SportsAndPlayerManagementController {
 		return  response;
 	}
 	
+	
+	/**
+	 * This is a Delete Api Use for deleting any Sport and Mapping to the Player
+	 * Note the player will not be deleted only the Associated Sport info and the Sport will be deleted
+	 * @param entity
+	 * @return 
+	 */
 	@DeleteMapping("/deleteSports")
 	public String deleteSports( @RequestBody SportRequest entity) {
 		logger.info("Entered getSportswithAssociatedPlayers");
@@ -78,6 +102,14 @@ public class SportsAndPlayerManagementController {
 	}
 	
 	
+	/**
+	 * This is Paginated Api to get all the player or players Associated to a Sport 
+	 * THis Api will provide the pagination information 
+	 * @param sportName
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping("/getPlayerListwithSportAndPaginated")
 	public  Map<String, Object> getPlayerListwithSportAndPaginated( 
 			@RequestParam(required = false) String sportName,
